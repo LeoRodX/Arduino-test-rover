@@ -309,7 +309,12 @@ body {
         <section">
         <h3>Код для загрузки</h3>
         <div class="code-block">
-            <pre>// Пин для светодиода
+            <pre>
+
+// Прошивка для ровера тестирующая правильность подключения моторов и ультразвукового дальномера.
+// Terre & Co, 2025
+
+// Пин для светодиода
 #define LED_PIN 13
 
 // Пины для ультразвукового датчика HC-SR04
@@ -447,7 +452,9 @@ void testSonarWithLED() {
   delay(blinkDelay);
   digitalWrite(LED_PIN, LOW);
   delay(blinkDelay);
-}</pre>
+}
+                
+            </pre>
         </div>
     </section>
 
