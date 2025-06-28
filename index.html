@@ -152,144 +152,543 @@
         </div>
     </section>
 
-    <section class="diagram">
-        <h2>Схема соединений</h2>
-        <img src="wiring_diagram.jpg" alt="Схема соединений модулей">
-        <p>Электрическая схема подключения всех компонентов ровера</p>
-# Инструкция по сборке ровера и тестированию моторов и дальномера
-
-## Описание проекта
-Простой 4-колесный робот на базе Arduino Nano с ультразвуковым датчиком расстояния, предназначенный для тестирования двигателей и работы с дальномером.
-
-## Комплектующие
-
-### Основные компоненты
-| Компонент | Количество |
-|-----------|------------|
-| Двигатель TT Motor | 4 шт. |
-| Колесо для TT Motor | 4 шт. |
-| Аккумулятор 18650 | 2 шт. |
-| Держатель аккумулятора 18650 | 2 шт. |
-| Плата Arduino Nano | 1 шт. |
-| Драйвер моторов MX1508 | 1 шт. |
-| Ультразвуковой датчик HC-SR04 | 1 шт. |
-
-### Дополнительные материалы
-- Шасси для крепления компонентов
-- Держатель для дальномера
-- Выключатель питания
-- Соединительные провода
-- Паяльник и припой (при необходимости)
-
-## Пошаговая сборка
-
-### 1. Установка механических компонентов
-1. Закрепите 4 двигателя TT Motor на шасси
-2. Установите колеса на валы двигателей
-3. Закрепите держатель для дальномера HC-SR04
-
-### 2. Электрические подключения
-#### Питание:
-1. Установите аккумуляторы в держатели
-2. Соедините держатели последовательно (7.4В)
-3. Подключите выключатель питания в разрыв плюсового провода
-
-#### Двигатели:
-| Драйвер MX1508 | Двигатели |
-|----------------|-----------|
-| Выход A+ | Левый передний + |
-| Выход A- | Левый передний - |
-| Выход B+ | Левый задний + |
-| Выход B- | Левый задний - |
-| Выход C+ | Правый передний + |
-| Выход C- | Правый передний - |
-| Выход D+ | Правый задний + |
-| Выход D- | Правый задний - |
-
-#### Arduino Nano:
-| Пин Arduino | Подключение |
-|-------------|-------------|
-| D2 | HC-SR04 Trig |
-| D3 | HC-SR04 Echo |
-| D4 | MX1508 IN1 |
-| D5 | MX1508 IN2 |
-| D6 | MX1508 IN3 |
-| D7 | MX1508 IN4 |
-| 5V | HC-SR04 VCC |
-| GND | Общий земля |
-
-## Программное обеспечение
-
-### Функционал скетча
-1. **Инициализация систем**:
-   - Настройка пинов ввода/вывода
-   - Тестовая индикация (3 мигания встроенного светодиода)
-   - Остановка всех двигателей
-
-2. **Тест двигателей**:
-   - Последовательное тестирование пар двигателей
-   - Вращение вперед/назад по 1 секунде
-   - Индикация завершения теста
-
-3. **Тест дальномера**:
-   - Непрерывное измерение расстояния
-   - Адаптивная индикация (частота мигания зависит от расстояния)
-
-### Код для загрузки
-```arduino
-// Здесь должен быть ваш код
-// (В оригинальной инструкции код не был предоставлен)
-```
-
-## Тестирование и использование
-
-1. Включите питание ровера
-2. Наблюдайте последовательность тестов:
-   - Индикация запуска
-   - Тест двигателей (каждая пара должна вращаться)
-   - Переход в режим теста дальномера
-3. Для проверки дальномера подносите руку на разные расстояния - частота мигания светодиода будет меняться
-
-## Безопасность
-- Проверяйте полярность подключения аккумуляторов
-- Убедитесь в надежности всех соединений перед включением
-- Избегайте коротких замыканий в цепях питания
-
-## Видеоинструкция
-[Здесь может быть ссылка на видео по сборке и тестированию]
-
-## FAQ
-**Q:** Двигатели не вращаются, что делать?
-**A:** Проверьте:
-1. Полярность подключения аккумуляторов
-2. Правильность соединений с драйвером моторов
-3. Соответствие пинов в программе
-
-**Q:** Дальномер показывает неверные значения
-**A:** Убедитесь, что:
-1. Датчик правильно подключен к 5V
-2. Нет препятствий перед датчиком
-3. Провода Echo и Trig подключены к правильным пинам
-
-## Поддержка
-По вопросам сборки обращайтесь на forum.example.com или support@example.com
-        
-    </section>
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-колесный робот на Arduino Nano - Полная инструкция</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .gallery-item {
+            flex: 1 1 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .gallery-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .specs, .assembly, .testing {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .video-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .note {
+            background-color: #fffde7;
+            padding: 15px;
+            border-left: 4px solid #ffd600;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>4-колесный робот на Arduino Nano</h1>
+        <p>Полная инструкция по сборке и тестированию</p>
+    </header>
 
     <section>
-        <h2>Функциональные возможности</h2>
+        <h2>Описание проекта</h2>
+        <p>Простой 4-колесный робот на базе Arduino Nano с ультразвуковым датчиком расстояния, предназначенный для тестирования двигателей и работы с дальномером.</p>
+    </section>
+
+    <section class="gallery">
+        <h2>Фотографии ровера</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="left_view.jpg" alt="Вид ровера слева">
+                <p>Вид слева</p>
+            </div>
+            <div class="gallery-item">
+                <img src="right_view.jpg" alt="Вид ровера справа">
+                <p>Вид справа</p>
+            </div>
+            <div class="gallery-item">
+                <img src="bottom_view.jpg" alt="Вид ровера снизу">
+                <p>Вид снизу</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="specs">
+        <h2>Комплектующие</h2>
+        
+        <h3>Основные компоненты</h3>
+        <table>
+            <tr>
+                <th>Компонент</th>
+                <th>Количество</th>
+            </tr>
+            <tr>
+                <td>Двигатель TT Motor</td>
+                <td>4 шт.</td>
+            </tr>
+            <tr>
+                <td>Колесо для TT Motor</td>
+                <td>4 шт.</td>
+            </tr>
+            <tr>
+                <td>Аккумулятор 18650</td>
+                <td>2 шт.</td>
+            </tr>
+            <tr>
+                <td>Держатель аккумулятора 18650</td>
+                <td>2 шт.</td>
+            </tr>
+            <tr>
+                <td>Плата Arduino Nano</td>
+                <td>1 шт.</td>
+            </tr>
+            <tr>
+                <td>Драйвер моторов MX1508</td>
+                <td>1 шт.</td>
+            </tr>
+            <tr>
+                <td>Ультразвуковой датчик HC-SR04</td>
+                <td>1 шт.</td>
+            </tr>
+        </table>
+
+        <h3>Дополнительные материалы</h3>
         <ul>
-            <li>Тестирование работы всех 4 двигателей</li>
-            <li>Измерение расстояния с помощью ультразвукового датчика</li>
-            <li>Визуальная индикация состояния (светодиод)</li>
-            <li>Простое управление движением вперед/назад</li>
-            <li>Возможность расширения функционала</li>
+            <li>Шасси для крепления компонентов</li>
+            <li>Держатель для дальномера</li>
+            <li>Выключатель питания</li>
+            <li>Соединительные провода</li>
+            <li>Паяльник и припой (при необходимости)</li>
         </ul>
+    </section>
+
+    <section class="assembly">
+        <h2>Пошаговая сборка</h2>
+
+        <h3>1. Установка механических компонентов</h3>
+        <ol>
+            <li>Закрепите 4 двигателя TT Motor на шасси</li>
+            <li>Установите колеса на валы двигателей</li>
+            <li>Закрепите держатель для дальномера HC-SR04</li>
+        </ol>
+
+        <h3>2. Электрические подключения</h3>
+        
+        <h4>Питание:</h4>
+        <ol>
+            <li>Установите аккумуляторы в держатели</li>
+            <li>Соедините держатели последовательно (7.4В)</li>
+            <li>Подключите выключатель питания в разрыв плюсового провода</li>
+        </ol>
+
+        <h4>Двигатели:</h4>
+        <table>
+            <tr>
+                <th>Драйвер MX1508</th>
+                <th>Двигатели</th>
+            </tr>
+            <tr>
+                <td>Выход A+</td>
+                <td>Левый передний +</td>
+            </tr>
+            <tr>
+                <td>Выход A-</td>
+                <td>Левый передний -</td>
+            </tr>
+            <tr>
+                <td>Выход B+</td>
+                <td>Левый задний +</td>
+            </tr>
+            <tr>
+                <td>Выход B-</td>
+                <td>Левый задний -</td>
+            </tr>
+            <tr>
+                <td>Выход C+</td>
+                <td>Правый передний +</td>
+            </tr>
+            <tr>
+                <td>Выход C-</td>
+                <td>Правый передний -</td>
+            </tr>
+            <tr>
+                <td>Выход D+</td>
+                <td>Правый задний +</td>
+            </tr>
+            <tr>
+                <td>Выход D-</td>
+                <td>Правый задний -</td>
+            </tr>
+        </table>
+
+        <h4>Arduino Nano:</h4>
+        <table>
+            <tr>
+                <th>Пин Arduino</th>
+                <th>Подключение</th>
+            </tr>
+            <tr>
+                <td>D2</td>
+                <td>HC-SR04 Trig</td>
+            </tr>
+            <tr>
+                <td>D3</td>
+                <td>HC-SR04 Echo</td>
+            </tr>
+            <tr>
+                <td>D4</td>
+                <td>MX1508 IN1</td>
+            </tr>
+            <tr>
+                <td>D5</td>
+                <td>MX1508 IN2</td>
+            </tr>
+            <tr>
+                <td>D6</td>
+                <td>MX1508 IN3</td>
+            </tr>
+            <tr>
+                <td>D7</td>
+                <td>MX1508 IN4</td>
+            </tr>
+            <tr>
+                <td>5V</td>
+                <td>HC-SR04 VCC</td>
+            </tr>
+            <tr>
+                <td>GND</td>
+                <td>Общий земля</td>
+            </tr>
+        </table>
+
+        <div class="diagram">
+            <h3>Схема соединений</h3>
+            <img src="wiring_diagram.jpg" alt="Схема соединений модулей">
+            <p>Электрическая схема подключения всех компонентов ровера</p>
+        </div>
+    </section>
+
+    <section class="specs">
+        <h2>Программное обеспечение</h2>
+
+        <h3>Функционал скетча</h3>
+        <ol>
+            <li><strong>Инициализация систем</strong>:
+                <ul>
+                    <li>Настройка пинов ввода/вывода</li>
+                    <li>Тестовая индикация (3 мигания встроенного светодиода)</li>
+                    <li>Остановка всех двигателей</li>
+                </ul>
+            </li>
+            <li><strong>Тест двигателей</strong>:
+                <ul>
+                    <li>Последовательное тестирование пар двигателей</li>
+                    <li>Вращение вперед/назад по 1 секунде</li>
+                    <li>Индикация завершения теста</li>
+                </ul>
+            </li>
+            <li><strong>Тест дальномера</strong>:
+                <ul>
+                    <li>Непрерывное измерение расстояния</li>
+                    <li>Адаптивная индикация (частота мигания зависит от расстояния)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Код для загрузки</h3>
+        <div class="code-block">
+            <pre>// Пин для светодиода
+#define LED_PIN 13
+
+// Пины для ультразвукового датчика HC-SR04
+#define TRIG_PIN 2  //D2
+#define ECHO_PIN 3  //D3
+
+// Пины для драйвера двигателей MX1508
+// Левые двигатели (пара A)
+#define LEFT_IN1 4  // IN1 на MX1508 (двигатель A)
+#define LEFT_IN2 5  // IN2 на MX1508 (двигатель A)
+// Правые двигатели (пара B)
+#define RIGHT_IN3 6 // IN3 на MX1508 (двигатель B)
+#define RIGHT_IN4 7 // IN4 на MX1508 (двигатель B)
+
+// Время работы двигателей при тесте (мс)
+#define MOTOR_TEST_TIME 1000
+// Задержка между тестами (мс)
+#define TEST_DELAY 500
+
+void setup() {
+  // Инициализация светодиода
+  pinMode(LED_PIN, OUTPUT);
+  
+  // Инициализация HC-SR04
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  
+  // Инициализация пинов двигателей
+  pinMode(LEFT_IN1, OUTPUT);
+  pinMode(LEFT_IN2, OUTPUT);
+  pinMode(RIGHT_IN3, OUTPUT);
+  pinMode(RIGHT_IN4, OUTPUT);
+  
+  // Остановка всех двигателей
+  stopAllMotors();
+  
+  // Тест светодиода - 3 мигания
+  for (int i = 0; i < 3; i++) {
+    digitalWrite(LED_PIN, HIGH);
+    delay(200);
+    digitalWrite(LED_PIN, LOW);
+    delay(200);
+  }
+  
+  delay(1000); // Пауза перед тестом двигателей
+}
+
+void loop() {
+  static bool motorsTested = false;
+  
+  if (!motorsTested) {
+    // Тест левой пары двигателей (A)
+    testMotorPair("Левая пара", LEFT_IN1, LEFT_IN2);
+    delay(TEST_DELAY);
+    
+    // Тест правой пары двигателей (B)
+    testMotorPair("Правая пара", RIGHT_IN3, RIGHT_IN4);
+    delay(TEST_DELAY);
+    
+    // Специальный сигнал светодиодом - 2 раза по 2 коротких мигания
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 2; j++) {
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
+      }
+      delay(200);
+    }
+    
+    delay(1000);
+    motorsTested = true;
+  }
+  
+  // Тест равномерного мигания и сонара
+  testSonarWithLED();
+}
+
+void testMotorPair(const String &pairName, int in1, int in2) {
+  // Вращение вперед
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  delay(MOTOR_TEST_TIME);
+  
+  // Вращение назад
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  delay(MOTOR_TEST_TIME);
+  
+  // Остановка
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+}
+
+void stopAllMotors() {
+  digitalWrite(LEFT_IN1, LOW);
+  digitalWrite(LEFT_IN2, LOW);
+  digitalWrite(RIGHT_IN3, LOW);
+  digitalWrite(RIGHT_IN4, LOW);
+}
+
+float getDistance() {
+  // Отправка импульса
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  
+  // Измерение длительности импульса
+  long duration = pulseIn(ECHO_PIN, HIGH);
+  
+  // Расчет расстояния в см
+  return duration * 0.034 / 2;
+}
+
+void testSonarWithLED() {
+  float distance = getDistance();
+  
+  // Частота мигания зависит от расстояния
+  int blinkDelay;
+  
+  if (distance < 10) { // Очень близко - быстрое мигание
+    blinkDelay = 100;
+  } else if (distance < 30) { // Близко - среднее мигание
+    blinkDelay = 200;
+  } else if (distance < 50) { // Далеко - медленное мигание
+    blinkDelay = 400;
+  } else { // Очень далеко - очень медленное мигание
+    blinkDelay = 800;
+  }
+  
+  // Мигание светодиодом
+  digitalWrite(LED_PIN, HIGH);
+  delay(blinkDelay);
+  digitalWrite(LED_PIN, LOW);
+  delay(blinkDelay);
+}</pre>
+        </div>
+    </section>
+
+    <section class="testing">
+        <h2>Тестирование и использование</h2>
+        <ol>
+            <li>Включите питание ровера</li>
+            <li>Наблюдайте последовательность тестов:
+                <ul>
+                    <li>Индикация запуска</li>
+                    <li>Тест двигателей (каждая пара должна вращаться)</li>
+                    <li>Переход в режим теста дальномера</li>
+                </ul>
+            </li>
+            <li>Для проверки дальномера подносите руку на разные расстояния - частота мигания светодиода будет меняться</li>
+        </ol>
+
+        <div class="note">
+            <h3>Безопасность</h3>
+            <ul>
+                <li>Проверяйте полярность подключения аккумуляторов</li>
+                <li>Убедитесь в надежности всех соединений перед включением</li>
+                <li>Избегайте коротких замыканий в цепях питания</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="video-container">
+        <h2>Видеоинструкция</h2>
+        <p>[Здесь может быть встроенное видео или ссылка на видео по сборке и тестированию]</p>
+        <!-- Пример встраивания видео:
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ВАШЕ_ВИДЕО" frameborder="0" allowfullscreen></iframe>
+        -->
+    </section>
+
+    <section class="specs">
+        <h2>FAQ (Часто задаваемые вопросы)</h2>
+        
+        <div class="faq-item">
+            <p class="faq-question">Двигатели не вращаются, что делать?</p>
+            <p>Проверьте:</p>
+            <ol>
+                <li>Полярность подключения аккумуляторов</li>
+                <li>Правильность соединений с драйвером моторов</li>
+                <li>Соответствие пинов в программе</li>
+            </ol>
+        </div>
+        
+        <div class="faq-item">
+            <p class="faq-question">Дальномер показывает неверные значения</p>
+            <p>Убедитесь, что:</p>
+            <ol>
+                <li>Датчик правильно подключен к 5V</li>
+                <li>Нет препятствий перед датчиком</li>
+                <li>Провода Echo и Trig подключены к правильным пинам</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="specs">
+        <h2>Поддержка</h2>
+        <p>По вопросам сборки обращайтесь на <a href="http://forum.example.com">forum.example.com</a> или <a href="mailto:support@example.com">support@example.com</a></p>
     </section>
 
     <footer>
         <p>© 2023 4-колесный робот на Arduino Nano | Все права защищены</p>
-        <p>Контактная информация: [ваш email или другие контакты]</p>
     </footer>
 </body>
 </html>
