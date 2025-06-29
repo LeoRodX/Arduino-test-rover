@@ -500,6 +500,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;  /* выравнивание по вертикали (при column) */
         }
         
         .social-links {
@@ -799,21 +800,21 @@
                 <h3>Функционал</h3>
                 <ol>
                     <li><strong>Инициализация систем</strong>:
-                        <ul>
+                        <ul style="padding-left: 20px;">
                             <li>Настройка пинов ввода/вывода</li>
                             <li>Тестовая индикация (3 мигания встроенного светодиода)</li>
                             <li>Остановка всех двигателей</li>
                         </ul>
                     </li>
                     <li><strong>Тест двигателей</strong>:
-                        <ul>
+                        <ul style="padding-left: 20px;">
                             <li>Последовательное тестирование пар двигателей</li>
                             <li>Вращение вперед/назад по 1 секунде</li>
                             <li>Индикация завершения теста</li>
                         </ul>
                     </li>
                     <li><strong>Тест дальномера</strong>:
-                        <ul>
+                        <ul  style="padding-left: 20px;">
                             <li>Непрерывное измерение расстояния</li>
                             <li>Адаптивная индикация (частота мигания зависит от расстояния)</li>
                         </ul>
@@ -995,13 +996,12 @@ void testSonarWithLED() {
         
         <section id="contact">
              <div class="contact-info">
-                <p>Вопросы можно отправлять на почту </p>
+                <p>Вопросы можно отправлять на почту&nbsp;</p>
                 <i class="fas fa-envelope contact-icon"></i>
                 <a href="mailto:admxp@yandex.ru">admxp@yandex.ru</a>
             </div>
         </section>
-    </main>
-    
+    </main>    
     <footer>
         <div class="container footer-content">            
             <p class="copyright">© Terre & Co, 2025</p>
