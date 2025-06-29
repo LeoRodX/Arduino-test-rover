@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4-колесный робот на Arduino Nano | Робототехника для начинающих</title>
+    <title>Стартовый ровер на Arduino Nano | Робототехника для начинающих</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -569,8 +569,9 @@
 <body>
     <header>
         <div class="container header-content">
-            <h1>4-колесный робот на Arduino</h1>
-            <p class="tagline">Откройте для себя мир робототехники с этим простым в сборке проектом. Идеальный старт для начинающих!</p>
+            <h1>Стартовый ровер на Arduino</h1>
+            <p class="tagline">Начальная версия ровера с ультрозвуковым дальномером и простой прошивкой, которая подключает все модули и тестирует их базовые режимы.
+Ровер предназначен для повторения, изучения и дальнейшего творческого совершенствования!</p>
             <div class="cta-buttons">
                 <a href="#components" class="btn btn-primary">Компоненты</a>
                 <a href="#assembly" class="btn btn-secondary">Инструкция</a>
@@ -998,65 +999,10 @@ void testSonarWithLED() {
                     <p>Если какой-то компонент не работает, проверьте соединения и правильность подключения по схемам выше. Убедитесь, что аккумуляторы заряжены.</p>
                 </div>
             </div>
-        </section>
-        
-        <section id="faq">
-            <div class="section-header">
-                <h2>Частые вопросы</h2>
-                <p>Ответы на популярные вопросы о проекте</p>
-            </div>
-            
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">Какие инструменты нужны для сборки?</div>
-                    <div class="faq-answer">
-                        <p>Для сборки вам понадобятся:</p>
-                        <ul>
-                            <li>Отвертка для крепления компонентов</li>
-                            <li>Паяльник и припой (для соединения проводов)</li>
-                            <li>Кусачки и обжимные клещи (для работы с проводами)</li>
-                            <li>Мультиметр (для проверки соединений)</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">Можно ли использовать другие моторы?</div>
-                    <div class="faq-answer">
-                        <p>Да, можно использовать другие двигатели с аналогичными характеристиками (3-6V, ток до 1.5А). Однако может потребоваться изменение конструкции шасси и проверка работы с драйвером MX1508.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">Как увеличить функционал робота?</div>
-                    <div class="faq-answer">
-                        <p>Вы можете добавить:</p>
-                        <ul>
-                            <li>Дополнительные датчики (инфракрасные, датчики линии, гироскоп)</li>
-                            <li>Bluetooth или Wi-Fi модуль для дистанционного управления</li>
-                            <li>Камеру для компьютерного зрения</li>
-                            <li>Модуль голосового управления</li>
-                            <li>Датчики освещенности для автономной навигации</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">Где взять схему подключения?</div>
-                    <div class="faq-answer">
-                        <p>Полная схема подключения всех компонентов доступна в разделе "Пошаговая сборка" выше. Все подключения подробно описаны в таблицах.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </section>       
         
         <section id="contact">
-            <div class="section-header">
-                <h2>Контакты</h2>
-                <p>Есть вопросы? Свяжитесь с нами!</p>
-            </div>
-            
-            <div class="contact-info">
+             <div class="contact-info">
                 <i class="fas fa-envelope contact-icon"></i>
                 <a href="mailto:admxp@yandex.ru">admxp@yandex.ru</a>
             </div>
@@ -1064,14 +1010,8 @@ void testSonarWithLED() {
     </main>
     
     <footer>
-        <div class="container footer-content">
-            <div class="social-links">
-                <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-            </div>
-            <p class="copyright">© 2025 ArduinoRover Project. Все права защищены.</p>
+        <div class="container footer-content">            
+            <p class="copyright">© Terre & Co, 2025</p>
         </div>
     </footer>
     
