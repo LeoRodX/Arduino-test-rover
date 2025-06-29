@@ -3,90 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4-колесный робот на Arduino Nano - Яркий проект</title>
+    <title>4-колесный робот на Arduino Nano | Робототехника для начинающих</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #FF5722;
-            --secondary: #2196F3;
-            --accent: #FFC107;
-            --dark: #263238;
-            --light: #ECEFF1;
-            --success: #4CAF50;
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --success: #2ecc71;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
         body {
-            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.7;
             color: var(--dark);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            background-color: #f9f9f9;
         }
         
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
         header {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
             color: white;
-            padding: 40px 20px;
+            padding: 60px 0 40px;
             text-align: center;
-            border-radius: 0 0 20px 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         header::before {
             content: "";
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('pattern.png') repeat;
+            opacity: 0.05;
+            pointer-events: none;
         }
         
-        header::after {
-            content: "";
-            position: absolute;
-            bottom: -80px;
-            left: -30px;
-            width: 150px;
-            height: 150px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
-        }
-        
-        h1 {
-            margin: 0;
-            font-size: 2.8em;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        .header-content {
             position: relative;
             z-index: 1;
         }
         
-        h2 {
-            color: var(--primary);
-            border-bottom: 3px solid var(--accent);
-            padding-bottom: 8px;
-            margin-top: 40px;
-            font-size: 1.8em;
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
         
-        h3 {
+        .tagline {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
             color: var(--secondary);
-            margin-top: 25px;
-            font-size: 1.4em;
         }
         
-        h4 {
+        /* Navigation */
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
             color: var(--dark);
-            margin-top: 20px;
-            font-size: 1.2em;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
         }
         
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main content */
+        main {
+            padding: 50px 0;
+        }
+        
+        section {
+            margin-bottom: 60px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Project description */
+        .project-description {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .project-description p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        /* Gallery */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -95,58 +256,127 @@
         }
         
         .gallery-item {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .gallery-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
-        .gallery-item img {
-            max-width: 100%;
-            height: auto;
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .gallery-caption {
+            padding: 15px;
+            text-align: center;
+        }
+        
+        /* Components */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .component-card {
+            background-color: white;
             border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #eee;
-        }
-        
-        .card {
-            background: white;
             padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            margin-bottom: 40px;
-            border-top: 4px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
         
+        .component-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .component-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .component-card h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        /* Assembly */
+        .assembly-steps {
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            padding-left: 80px;
+        }
+        
+        .step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 30px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .step ol, .step ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .step li {
+            margin-bottom: 8px;
+        }
+        
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 25px 0;
+            background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-        
-        table, th, td {
-            border: 1px solid #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         th, td {
             padding: 15px;
             text-align: left;
+            border-bottom: 1px solid #eee;
         }
         
         th {
-            background: linear-gradient(to right, var(--secondary), var(--primary));
+            background-color: var(--primary);
             color: white;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         tr:nth-child(even) {
@@ -157,382 +387,447 @@
             background-color: #f1f1f1;
         }
         
+        /* Code block */
         .code-block {
-            background-color: #2d2d2d;
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            margin: 25px 0;
+            background-color: #282c34;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
             overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
-            color: #f8f8f2;
-            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .faq-item {
-            margin-bottom: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .faq-question {
-            font-weight: bold;
-            color: var(--primary);
-            font-size: 1.1em;
-        }
-        
-        .video-container {
-            text-align: center;
-            margin: 40px 0;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding: 30px;
-            color: #607D8B;
-            font-size: 0.9em;
-            background: white;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .note {
-            background-color: #FFF8E1;
-            padding: 20px;
-            border-left: 4px solid var(--accent);
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-            position: relative;
-        }
-        
-        .note::before {
-            content: "!";
-            position: absolute;
-            left: -15px;
-            top: -15px;
-            background: var(--accent);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        .code-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            color: #abb2bf;
         }
         
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .spec-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            border-left: 3px solid var(--secondary);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), #FF7043);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            margin: 10px 5px;
-            box-shadow: 0 4px 8px rgba(255,87,34,0.3);
+        .copy-btn {
+            background-color: #3a3f4b;
+            color: #abb2bf;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
             transition: all 0.3s;
         }
         
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(255,87,34,0.4);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(to right, var(--secondary), #42A5F5);
-            box-shadow: 0 4px 8px rgba(33,150,243,0.3);
-        }
-        
-        .btn-secondary:hover {
-            box-shadow: 0 6px 12px rgba(33,150,243,0.4);
-        }
-        
-        .header-subtitle {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 15px auto 0;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .steps {
-            counter-reset: step-counter;
-        }
-        
-        .step {
-            position: relative;
-            padding-left: 50px;
-            margin-bottom: 20px;
-        }
-        
-        .step::before {
-            counter-increment: step-counter;
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 36px;
-            height: 36px;
-            background: var(--primary);
+        .copy-btn:hover {
+            background-color: var(--primary);
             color: white;
-            border-radius: 50%;
+        }
+        
+        pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #abb2bf;
+        }
+        
+        /* FAQ */
+        .faq-item {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #e9ecef;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .faq-question.active::after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        
+        .faq-answer.show {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Contact */
+        .contact-info {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
+            margin-top: 20px;
         }
         
+        .contact-icon {
+            margin-right: 10px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+            }
+            
+            .nav-links li {
+                margin: 0 15px;
+            }
+            
             h1 {
-                font-size: 2em;
+                font-size: 2.2rem;
             }
             
-            .gallery {
-                grid-template-columns: 1fr;
+            .cta-buttons {
+                flex-direction: column;
+                gap: 10px;
             }
             
-            .specs-grid {
-                grid-template-columns: 1fr;
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto;
+            }
+            
+            .step {
+                padding-left: 70px;
+            }
+            
+            .step::before {
+                left: 15px;
+                top: 25px;
+                width: 35px;
+                height: 35px;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>Стартовый ровер на Arduino</h1>
-        <p class="header-subtitle">Яркий и простой проект для начинающих робототехников с ультразвуковым дальномером и тестовой прошивкой</p>
-        <div style="margin-top: 20px;">
-            <a href="#components" class="btn">Компоненты</a>
-            <a href="#assembly" class="btn btn-secondary">Сборка</a>
-            <a href="#code" class="btn">Код</a>
+        <div class="container header-content">
+            <h1>4-колесный робот на Arduino</h1>
+            <p class="tagline">Откройте для себя мир робототехники с этим простым в сборке проектом. Идеальный старт для начинающих!</p>
+            <div class="cta-buttons">
+                <a href="#components" class="btn btn-primary">Компоненты</a>
+                <a href="#assembly" class="btn btn-secondary">Инструкция</a>
+            </div>
         </div>
     </header>
-
-    <div style="padding: 0 20px;">
-        <section class="card">
-            <h2 id="about">О проекте</h2>
-            <p>Этот 4-колесный робот с ярким дизайном идеально подходит для начинающих. В основе конструкции - популярные и доступные компоненты:</p>
-            <ul>
-                <li>Микроконтроллер Arduino Nano</li>
-                <li>Драйвер моторов MX1508</li>
-                <li>Ультразвуковой датчик HC-SR04</li>
-                <li>Два аккумулятора 18650 (7.4V)</li>
+    
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo"><i class="fas fa-robot"></i>ArduinoRover</a>
+            <ul class="nav-links">
+                <li><a href="#about">О проекте</a></li>
+                <li><a href="#components">Компоненты</a></li>
+                <li><a href="#assembly">Сборка</a></li>
+                <li><a href="#code">Программирование</a></li>
+                <li><a href="#faq">FAQ</a></li>
             </ul>
-            <p>Проект предназначен для изучения основ робототехники и может служить платформой для ваших собственных разработок.</p>
-        </section>
-
-        <section>
-            <h2>Галерея проекта</h2>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="front.png" alt="Вид ровера спереди">
-                    <p>Вид спереди</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="behind.png" alt="Вид ровера сзади">
-                    <p>Вид сзади</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="below.png" alt="Вид ровера снизу">
-                    <p>Вид снизу</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="card" id="components">
-            <h2>Комплектующие</h2>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <strong>Микроконтроллер:</strong> Arduino Nano
-                </div>            
-                <div class="spec-item">
-                    <strong>Драйвер моторов:</strong> MX1508
-                </div>
-                <div class="spec-item">
-                    <strong>Датчик расстояния:</strong> HC-SR04
-                </div>
-                <div class="spec-item">
-                    <strong>Питание:</strong> 2 × 18650 (7.4V)
-                </div>
-                <div class="spec-item">
-                    <strong>Двигатели:</strong> 4 × TT Motor
-                </div>
-                <div class="spec-item">
-                    <strong>Колёса:</strong> 4 шт
-                </div>
-            </div>
-     
-            <h3 style="margin-top: 30px;">Дополнительные материалы</h3>
-            <ul>
-                <li>Шасси для крепления компонентов</li>
-                <li>Держатель для дальномера</li>
-                <li>Держатели аккумуляторов</li>
-                <li>Выключатель питания</li>
-                <li>Соединительные провода</li>
-                <li>Паяльник и припой (при необходимости)</li>
-            </ul>
-        </section>
-
-        <section class="card" id="assembly">
-            <h2>Пошаговая сборка</h2>
-
-            <div class="steps">
-                <h3>1. Установка механических компонентов</h3>
-                <div class="step">Закрепите 4 двигателя TT Motor на шасси</div>
-                <div class="step">Установите колеса на валы двигателей</div>
-                <div class="step">Закрепите держатели аккумуляторов</div>
-                <div class="step">Закрепите держатель для дальномера HC-SR04</div>
-                
-                <h3 style="margin-top: 40px;">2. Электрические подключения</h3>
-                <h4 style="margin-top: 20px;">Питание:</h4>
-                <div class="step">Установите аккумуляторы в держатели</div>
-                <div class="step">Соедините держатели последовательно (7.4В)</div>
-                <div class="step">Подключите выключатель питания в разрыв плюсового провода</div>
-            </div>
-
-            <div class="note">
-                Внимание! Перед подключением питания убедитесь в правильности всех соединений.
-            </div>
-
-            <h3>Схема подключения драйвера моторов</h3>
-            <table>
-                <tr>
-                    <th>Драйвер MX1508</th>
-                    <th>Двигатели</th>
-                </tr>
-                <tr>
-                    <td>Выход A+</td>
-                    <td>Левый передний +, Левый задний +</td>
-                </tr>
-                <tr>
-                    <td>Выход A-</td>
-                    <td>Левый передний -, Левый задний -</td>
-                </tr>
-                <tr>
-                    <td>Выход B+</td>
-                    <td>Правый передний +, Правый задний +</td>
-                </tr>
-                <tr>
-                    <td>Выход B-</td>
-                    <td>Правый передний -, Правый задний -</td>
-                </tr>
-                <tr>
-                    <td>+</td>
-                    <td>выключатель ( "+" аккумулятора)</td>
-                </tr>
-                <tr>
-                    <td>-</td>
-                    <td> "-" аккумулятора</td>
-                </tr>
-            </table>
-
-            <h3 style="margin-top: 30px;">Подключение Arduino Nano</h3>
-            <table>
-                <tr>
-                    <th>Пин Arduino</th>
-                    <th>Подключение</th>
-                </tr>
-                <tr>
-                    <td>D2</td>
-                    <td>HC-SR04 Trig</td>
-                </tr>
-                <tr>
-                    <td>D3</td>
-                    <td>HC-SR04 Echo</td>
-                </tr>
-                <tr>
-                    <td>D4</td>
-                    <td>MX1508 IN1</td>
-                </tr>
-                <tr>
-                    <td>D5</td>
-                    <td>MX1508 IN2</td>
-                </tr>
-                <tr>
-                    <td>D6</td>
-                    <td>MX1508 IN3</td>
-                </tr>
-                <tr>
-                    <td>D7</td>
-                    <td>MX1508 IN4</td>
-                </tr>
-                <tr>
-                    <td>5V</td>
-                    <td>HC-SR04 VCC</td>
-                </tr>
-                <tr>
-                    <td>GND</td>
-                    <td>HC-SR04 GND</td>
-                </tr>
-                <tr>
-                    <td>VIN</td>
-                    <td>выключатель ( "+" аккумулятора)</td>
-                </tr>
-                <tr>
-                    <td>GND (второй)</td>
-                    <td>"-" аккумулятора</td>
-                </tr>
-            </table>
-        </section>
-
-        <section class="card" id="code">
-            <h2>Программное обеспечение</h2>
-            <h3>Функционал скетча</h3>
-            <div class="specs-grid">
-                <div class="spec-item">
-                    <strong>Инициализация систем</strong>:
-                    <ul>
-                        <li>Настройка пинов ввода/вывода</li>
-                        <li>Тестовая индикация (3 мигания LED)</li>
-                        <li>Остановка всех двигателей</li>
-                    </ul>
-                </div>
-                <div class="spec-item">
-                    <strong>Тест двигателей</strong>:
-                    <ul>
-                        <li>Последовательное тестирование пар двигателей</li>
-                        <li>Вращение вперед/назад по 1 секунде</li>
-                        <li>Индикация завершения теста</li>
-                    </ul>
-                </div>
-                <div class="spec-item">
-                    <strong>Тест дальномера</strong>:
-                    <ul>
-                        <li>Непрерывное измерение расстояния</li>
-                        <li>Адаптивная индикация (частота мигания зависит от расстояния)</li>
-                    </ul>
-                </div>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section id="about">
+            <div class="section-header">
+                <h2>О проекте</h2>
+                <p>Простой, но функциональный 4-колесный робот для изучения основ робототехники</p>
             </div>
             
-            <h3 style="margin-top: 30px;">Исходный код</h3>
-            <div class="code-block">
-                <pre style="margin: 0;">
-
+            <div class="project-description">
+                <p>Этот проект представляет собой базовую платформу 4-колесного робота на Arduino Nano, которая может стать основой для множества экспериментов и усовершенствований.</p>
+                
+                <div class="highlight-box">
+                    <h4>Для кого этот проект?</h4>
+                    <p>Идеально подходит для начинающих в робототехнике, студентов и всех, кто хочет получить практический опыт работы с Arduino, двигателями и датчиками.</p>
+                </div>
+                
+                <p>Робот оснащен ультразвуковым датчиком расстояния HC-SR04 для обнаружения препятствий и драйвером двигателей MX1508 для управления 4 моторами. Прошивка включает тестовые режимы для проверки всех компонентов.</p>
+            </div>
+        </section>
+        
+        <section id="gallery">
+            <div class="section-header">
+                <h2>Галерея</h2>
+                <p>Фотографии готового проекта с разных ракурсов</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="front.png" alt="Вид спереди" class="gallery-img">
+                    <div class="gallery-caption">Вид спереди</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="behind.png" alt="Вид сзади" class="gallery-img">
+                    <div class="gallery-caption">Вид сзади</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="below.png" alt="Вид снизу" class="gallery-img">
+                    <div class="gallery-caption">Вид снизу</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="components">
+            <div class="section-header">
+                <h2>Компоненты</h2>
+                <p>Все необходимое для сборки робота</p>
+            </div>
+            
+            <div class="components-grid">
+                <div class="component-card">
+                    <div class="component-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Arduino Nano</h3>
+                    <p>Компактный микроконтроллер для управления роботом</p>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-icon"><i class="fas fa-car-battery"></i></div>
+                    <h3>Аккумуляторы 18650</h3>
+                    <p>2 литий-ионных аккумулятора (7.4V)</p>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>Драйвер MX1508</h3>
+                    <p>Драйвер двигателей для управления моторами</p>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-icon"><i class="fas fa-ruler-vertical"></i></div>
+                    <h3>Датчик HC-SR04</h3>
+                    <p>Ультразвуковой датчик расстояния</p>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Моторы TT Motor</h3>
+                    <p>4 двигателя с редуктором (3-6V)</p>
+                </div>
+                
+                <div class="component-card">
+                    <div class="component-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Дополнительно</h3>
+                    <p>Шасси, колеса, провода, выключатель</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="assembly">
+            <div class="section-header">
+                <h2>Пошаговая сборка</h2>
+                <p>Подробная инструкция по сборке робота</p>
+            </div>
+            
+            <div class="assembly-steps">
+                <div class="step">
+                    <h3>Механическая сборка</h3>
+                    <ol>
+                        <li>Закрепите 4 двигателя TT Motor на шасси</li>
+                        <li>Установите колеса на валы двигателей</li>
+                        <li>Закрепите держатели аккумуляторов</li>
+                        <li>Установите держатель для дальномера HC-SR04</li>
+                    </ol>
+                </div>
+                
+                <div class="step">
+                    <h3>Подключение питания</h3>
+                    <ol>
+                        <li>Установите аккумуляторы в держатели</li>
+                        <li>Соедините держатели последовательно (7.4В)</li>
+                        <li>Подключите выключатель питания в разрыв плюсового провода</li>
+                    </ol>
+                </div>
+                
+                <div class="step">
+                    <h3>Подключение двигателей</h3>
+                    
+                    <table>
+                        <tr>
+                            <th>Драйвер MX1508</th>
+                            <th>Двигатели</th>
+                        </tr>
+                        <tr>
+                            <td>Выход A+</td>
+                            <td>Левый передний +, Левый задний +</td>
+                        </tr>
+                        <tr>
+                            <td>Выход A-</td>
+                            <td>Левый передний -, Левый задний -</td>
+                        </tr>
+                        <tr>
+                            <td>Выход B+</td>
+                            <td>Правый передний +, Правый задний +</td>
+                        </tr>
+                        <tr>
+                            <td>Выход B-</td>
+                            <td>Правый передний -, Правый задний -</td>
+                        </tr>
+                        <tr>
+                            <td>+</td>
+                            <td>Выключатель ("+" аккумулятора)</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>"-" аккумулятора</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="step">
+                    <h3>Подключение Arduino Nano</h3>
+                    
+                    <table>
+                        <tr>
+                            <th>Пин Arduino</th>
+                            <th>Подключение</th>
+                        </tr>
+                        <tr>
+                            <td>D2</td>
+                            <td>HC-SR04 Trig</td>
+                        </tr>
+                        <tr>
+                            <td>D3</td>
+                            <td>HC-SR04 Echo</td>
+                        </tr>
+                        <tr>
+                            <td>D4</td>
+                            <td>MX1508 IN1</td>
+                        </tr>
+                        <tr>
+                            <td>D5</td>
+                            <td>MX1508 IN2</td>
+                        </tr>
+                        <tr>
+                            <td>D6</td>
+                            <td>MX1508 IN3</td>
+                        </tr>
+                        <tr>
+                            <td>D7</td>
+                            <td>MX1508 IN4</td>
+                        </tr>
+                        <tr>
+                            <td>5V</td>
+                            <td>HC-SR04 VCC</td>
+                        </tr>
+                        <tr>
+                            <td>GND</td>
+                            <td>HC-SR04 GND</td>
+                        </tr>
+                        <tr>
+                            <td>VIN</td>
+                            <td>Выключатель ("+" аккумулятора)</td>
+                        </tr>
+                        <tr>
+                            <td>GND (второй)</td>
+                            <td>"-" аккумулятора</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <section id="code">
+            <div class="section-header">
+                <h2>Программное обеспечение</h2>
+                <p>Скетч для Arduino с тестами всех компонентов</p>
+            </div>
+            
+            <div class="project-description">
+                <h3>Функционал прошивки</h3>
+                <ol>
+                    <li><strong>Инициализация систем</strong>:
+                        <ul>
+                            <li>Настройка пинов ввода/вывода</li>
+                            <li>Тестовая индикация (3 мигания встроенного светодиода)</li>
+                            <li>Остановка всех двигателей</li>
+                        </ul>
+                    </li>
+                    <li><strong>Тест двигателей</strong>:
+                        <ul>
+                            <li>Последовательное тестирование пар двигателей</li>
+                            <li>Вращение вперед/назад по 1 секунде</li>
+                            <li>Индикация завершения теста</li>
+                        </ul>
+                    </li>
+                    <li><strong>Тест дальномера</strong>:
+                        <ul>
+                            <li>Непрерывное измерение расстояния</li>
+                            <li>Адаптивная индикация (частота мигания зависит от расстояния)</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>arduino_rover.ino</span>
+                        <button class="copy-btn" onclick="copyCode()">Копировать</button>
+                    </div>
+                    <pre>
 // Скетч для ровера тестирующий правильность подключения моторов и ультразвукового дальномера.
 // Terre & Co, 2025
 
@@ -674,47 +969,168 @@ void testSonarWithLED() {
   delay(blinkDelay);
   digitalWrite(LED_PIN, LOW);
   delay(blinkDelay);
-}
-                </pre>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="#" class="btn">Скачать код</a>
-            </div>
-        </section>
-
-        <section class="card">
-            <h2>Тестирование</h2>
-            <div class="steps">
-                <div class="step">Включите питание ровера</div>
-                <div class="step">Наблюдайте последовательность тестов:
-                    <ul style="margin-top: 10px;">
-                        <li>Индикация запуска (3 мигания)</li>
-                        <li>Тест двигателей (левая пара, затем правая)</li>
-                        <li>Переход в режим теста дальномера</li>
-                    </ul>
+}</pre>
                 </div>
-                <div class="step">Для проверки дальномера подносите руку на разные расстояния - частота мигания светодиода будет меняться</div>
+            </div>
+        </section>
+        
+        <section id="testing">
+            <div class="section-header">
+                <h2>Тестирование</h2>
+                <p>Как проверить работоспособность робота</p>
             </div>
             
-            <div class="note">
-                Если какой-то из тестов не проходит, проверьте соответствующие подключения.
+            <div class="project-description">
+                <ol>
+                    <li>Включите питание ровера</li>
+                    <li>Наблюдайте последовательность тестов:
+                        <ul>
+                            <li>Индикация запуска (3 мигания светодиода)</li>
+                            <li>Тест двигателей (сначала вращается левая пара колёс вперед затем назад, затем правая пара)</li>
+                            <li>Переход в режим теста дальномера</li>
+                        </ul>
+                    </li>
+                    <li>Для проверки дальномера подносите руку на разные расстояния - частота мигания светодиода будет меняться</li>
+                </ol>
+                
+                <div class="highlight-box">
+                    <h4>Совет</h4>
+                    <p>Если какой-то компонент не работает, проверьте соединения и правильность подключения по схемам выше. Убедитесь, что аккумуляторы заряжены.</p>
+                </div>
             </div>
         </section>
-
-        <section class="card" style="text-align: center;">
-            <h2>Готовы начать?</h2>
-            <p>Соберите свой яркий ровер и экспериментируйте!</p>
-            <div style="margin-top: 20px;">
-                <a href="#components" class="btn">Список компонентов</a>
-                <a href="#assembly" class="btn btn-secondary">Инструкция сборки</a>
+        
+        <section id="faq">
+            <div class="section-header">
+                <h2>Частые вопросы</h2>
+                <p>Ответы на популярные вопросы о проекте</p>
             </div>
-            <p style="margin-top: 30px;">Вопросы можно направлять по адресу <a href="mailto:admxp@yandex.ru" style="color: var(--primary); font-weight: 500;">admxp@yandex.ru</a></p>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">Какие инструменты нужны для сборки?</div>
+                    <div class="faq-answer">
+                        <p>Для сборки вам понадобятся:</p>
+                        <ul>
+                            <li>Отвертка для крепления компонентов</li>
+                            <li>Паяльник и припой (для соединения проводов)</li>
+                            <li>Кусачки и обжимные клещи (для работы с проводами)</li>
+                            <li>Мультиметр (для проверки соединений)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Можно ли использовать другие моторы?</div>
+                    <div class="faq-answer">
+                        <p>Да, можно использовать другие двигатели с аналогичными характеристиками (3-6V, ток до 1.5А). Однако может потребоваться изменение конструкции шасси и проверка работы с драйвером MX1508.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Как увеличить функционал робота?</div>
+                    <div class="faq-answer">
+                        <p>Вы можете добавить:</p>
+                        <ul>
+                            <li>Дополнительные датчики (инфракрасные, датчики линии, гироскоп)</li>
+                            <li>Bluetooth или Wi-Fi модуль для дистанционного управления</li>
+                            <li>Камеру для компьютерного зрения</li>
+                            <li>Модуль голосового управления</li>
+                            <li>Датчики освещенности для автономной навигации</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Где взять схему подключения?</div>
+                    <div class="faq-answer">
+                        <p>Полная схема подключения всех компонентов доступна в разделе "Пошаговая сборка" выше. Все подключения подробно описаны в таблицах.</p>
+                    </div>
+                </div>
+            </div>
         </section>
-    </div>
-
+        
+        <section id="contact">
+            <div class="section-header">
+                <h2>Контакты</h2>
+                <p>Есть вопросы? Свяжитесь с нами!</p>
+            </div>
+            
+            <div class="contact-info">
+                <i class="fas fa-envelope contact-icon"></i>
+                <a href="mailto:admxp@yandex.ru">admxp@yandex.ru</a>
+            </div>
+        </section>
+    </main>
+    
     <footer>
-        <p>© Terre & Co, 2025 | Яркие робототехнические проекты</p>
+        <div class="container footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="copyright">© 2025 ArduinoRover Project. Все права защищены.</p>
+        </div>
     </footer>
+    
+    <script>
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.classList.remove('show');
+                });
+                
+                // Remove active class from all questions
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.classList.remove('active');
+                });
+                
+                // Open current answer if it was closed
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('show');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Copy code button
+        function copyCode() {
+            const code = document.querySelector('.code-block pre').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = 'Скопировано!';
+                setTimeout(() => {
+                    btn.textContent = 'Копировать';
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
